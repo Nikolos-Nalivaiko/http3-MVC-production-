@@ -35,6 +35,18 @@
         </div>
     </div>
 
+    <div class="overlay overlay--warning">
+        <div class="overlay__body">
+            <p class="overlay__icon overlay__icon--warning __icon-warning"></p>
+            <p class="overlay__headline">Видалити вантаж ?</p>
+            <p class="overlay__description">Процес, який призведе до видалення всіх даних</p>
+            <div class="overlay__wrap-btn--warning">
+                <p class="overlay__btn overlay__btn--warning overlay__close">Закрити</p>
+                <p class="overlay__btn overlay__btn--warning overlay__delete">Видалити</p>
+            </div>
+        </div>
+    </div>
+
     <div class="overlay overlay--error">
         <div class="overlay__body">
             <p class="overlay__icon overlay__icon-error __icon-close"></p>
@@ -50,7 +62,7 @@
                 <div class="menu--mobile__block">
                     <li class="menu--mobile__item">
                         <p class="menu--mobile__icon __icon-home"></p>
-                        <a href="index.html" class="menu--mobile__link">Головна</a>
+                        <a href="/" class="menu--mobile__link">Головна</a>
                     </li>
                 </div>
 
@@ -59,8 +71,8 @@
                         <p class="menu--mobile__icon __icon-cargo-menu"></p>Вантажі
                     </li>
                     <div class="menu--mobile__subitem-wrap">
-                        <li class="menu--mobile__subitem"><a href="cargos.html">Біржа вантажів</a></li>
-                        <li class="menu--mobile__subitem"><a href="new-cargo.html">Додати вантаж</a></li>
+                        <li class="menu--mobile__subitem"><a href="/cargos/1">Біржа вантажів</a></li>
+                        <li class="menu--mobile__subitem"><a href="/cargo/create">Додати вантаж</a></li>
                     </div>
                 </div>
 
@@ -69,8 +81,8 @@
                         <p class="menu--mobile__icon __icon-cars-tab"></p>Транспорт
                     </li>
                     <div class="menu--mobile__subitem-wrap">
-                        <li class="menu--mobile__subitem"><a href="cars.html">Біржа транспорту</a></li>
-                        <li class="menu--mobile__subitem"><a href="new-car.html">Додати транспорт</a></li>
+                        <li class="menu--mobile__subitem"><a href="/cars/1">Біржа транспорту</a></li>
+                        <li class="menu--mobile__subitem"><a href="/car/create">Додати транспорт</a></li>
                     </div>
                 </div>
 
@@ -106,15 +118,15 @@
                         <li class="navbar__item navbar__dropdown-container">
                             <p class="navbar__dropdown-headline">Вантажі</p>
                             <div class="navbar__dropdown-content">
-                                <a href="/cargos">Біржа вантажів</a>
+                                <a href="/cargos/1">Біржа вантажів</a>
                                 <a href="/cargo/create">Додати вантаж</a>
                             </div>
                         </li>
                         <li class="navbar__item navbar__dropdown-container">
                             <p class="navbar__dropdown-headline">Транспорт</p>
                             <div class="navbar__dropdown-content">
-                                <a href="cars.html">Біржа транспорту</a>
-                                <a href="new-car.html">Додати транспорт</a>
+                                <a href="/cars/1">Біржа транспорту</a>
+                                <a href="/car/create">Додати транспорт</a>
                             </div>
                         </li>
                         <?php
@@ -122,7 +134,7 @@
                             echo '<li class="navbar__item"><a class="navbar__item-btn" href="/account/sign-in">Увійти</a></li>';
                         } else {
                             ?>
-                        <a href="" class="navbar__user">
+                        <a href="/account/profile" class="navbar__user">
                             <img class="navbar__user-image" src="/public/user_image/<?= $user['image']?>"
                                 alt="user_image">
                             <div class="navbar__user-text">
@@ -250,7 +262,6 @@
     loading();
     openMenu();
     openFilter();
-    UploadImage();
     phoneMask();
     overlay();
     </script>

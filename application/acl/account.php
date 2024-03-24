@@ -13,6 +13,8 @@ return [
     ],
 
     'authorize' => [
-        // 'signUpUser',
-    ],
+        'profile',
+        'changePassword',
+        'changeLogin'
+    ]
 ];

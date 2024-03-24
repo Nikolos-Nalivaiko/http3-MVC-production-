@@ -42,12 +42,27 @@ return [
         'action' => 'recoveryPassword'
     ],
 
-    '/cargos' => [
+    '/account/profile' => [
+        'controller' => 'account',
+        'action' => 'profile'
+    ],
+
+    '/account/change/password' => [
+        'controller' => 'account',
+        'action' => 'changePassword'
+    ],
+
+    '/account/change/login' => [
+        'controller' => 'account',
+        'action' => 'changeLogin'
+    ],
+
+    '/cargos/(\d+)' => [
         'controller' => 'cargo',
         'action' => 'cargos'
     ],
 
-    '/cargo/info' => [
+    '/cargo/info/(\d+)' => [
         'controller' => 'cargo',
         'action' => 'info'
     ],
@@ -57,7 +72,12 @@ return [
         'action' => 'create'
     ],
 
-    '/cars' => [
+    '/cargo/update' => [
+        'controller' => 'cargo',
+        'action' => 'update'
+    ],
+
+    '/cars/(\d+)' => [
         'controller' => 'car',
         'action' => 'cars'
     ],
@@ -67,13 +87,19 @@ return [
         'action' => 'create'
     ],
 
-    '/car/info' => [
+    '/car/info/(\d+)' => [
         'controller' => 'car',
         'action' => 'info'
     ],
 
-    '/user' => [
+    '/car/update' => [
+        'controller' => 'car',
+        'action' => 'update'
+    ],
+
+    '/user/info/(\d+)' => [
         'controller' => 'user',
         'action' => 'info'
     ],
+
 ];

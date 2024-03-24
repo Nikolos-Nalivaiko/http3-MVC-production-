@@ -104,85 +104,31 @@
         <div class="reviews__slider">
             <div class="reviews__track">
 
-                <div class="reviews__block">
-                    <div class="reviews__block-head">
-                        <img src="../img/user.jpg" class="reviews__image">
-                        <div class="reviews__stars">
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star __icon-star"></p>
-                        </div>
-                    </div>
-                    <p class="reviews__headline">Ковальчук Олександр Ігорович</p>
-                    <p class="reviews__description">Фізична особа</p>
-                    <p class="reviews__review">Наша компанія з великим задоволенням використовує логічну
-                        платформу для організації перевезень. Цей інноваційний інструмент дозволяє нам ефективно
-                        керувати нашим транспортним парком та знаходити оптимальні маршрути для доставки
-                        вантажів. Легка навігація, надійність та зручність взаємодії з іншими учасниками ринку
-                        роблять цю платформу незамінною для наших потреб. </p>
-                </div>
+                <?php
+                    foreach($comments as $comment) {
+                ?>
 
                 <div class="reviews__block">
                     <div class="reviews__block-head">
-                        <img src="../img/user.jpg" class="reviews__image">
+                        <img src="/public/user_image/<?=$comment['image']?>" class="reviews__image">
                         <div class="reviews__stars">
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star __icon-star"></p>
+                            <?php
+                            for($i = 0; $i < 5; $i++) {
+                                $class = ($i < $comment['rating']) ? 'reviews__star reviews__star--active __icon-star' : 'reviews__star __icon-star';
+                                echo "<p class='$class'></p>";
+                            }
+                        ?>
                         </div>
                     </div>
-                    <p class="reviews__headline">ТОВ “ЛогіСмарт”</p>
-                    <p class="reviews__description">Підприємство</p>
-                    <p class="reviews__review">Наша компанія з великим задоволенням використовує логічну
-                        платформу для організації перевезень. Цей інноваційний інструмент дозволяє нам ефективно
-                        керувати нашим транспортним парком та знаходити оптимальні маршрути для доставки
-                        вантажів. Легка навігація, надійність та зручність взаємодії з іншими учасниками ринку
-                        роблять цю платформу незамінною для наших потреб. </p>
+                    <p class="reviews__headline"><?=$comment['last_name']?> <?=$comment['user_name']?>
+                        <?=$comment['middle_name']?></p>
+                    <p class="reviews__description"><?=$comment['type']?></p>
+                    <p class="reviews__review"><?=$comment['description']?></p>
                 </div>
 
-                <div class="reviews__block">
-                    <div class="reviews__block-head">
-                        <img src="../img/user.jpg" class="reviews__image">
-                        <div class="reviews__stars">
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star __icon-star"></p>
-                        </div>
-                    </div>
-                    <p class="reviews__headline">ТОВ “ЛогіСмарт”</p>
-                    <p class="reviews__description">Підприємство</p>
-                    <p class="reviews__review">Наша компанія з великим задоволенням використовує логічну
-                        платформу для організації перевезень. Цей інноваційний інструмент дозволяє нам ефективно
-                        керувати нашим транспортним парком та знаходити оптимальні маршрути для доставки
-                        вантажів. Легка навігація, надійність та зручність взаємодії з іншими учасниками ринку
-                        роблять цю платформу незамінною для наших потреб. </p>
-                </div>
-
-                <div class="reviews__block">
-                    <div class="reviews__block-head">
-                        <img src="../img/user.jpg" class="reviews__image">
-                        <div class="reviews__stars">
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star reviews__star--active __icon-star"></p>
-                            <p class="reviews__star __icon-star"></p>
-                        </div>
-                    </div>
-                    <p class="reviews__headline">ТОВ “ЛогіСмарт”</p>
-                    <p class="reviews__description">Підприємство</p>
-                    <p class="reviews__review">Наша компанія з великим задоволенням використовує логічну
-                        платформу для організації перевезень. Цей інноваційний інструмент дозволяє нам ефективно
-                        керувати нашим транспортним парком та знаходити оптимальні маршрути для доставки
-                        вантажів. Легка навігація, надійність та зручність взаємодії з іншими учасниками ринку
-                        роблять цю платформу незамінною для наших потреб. </p>
-                </div>
+                <?php
+                    }
+                ?>
 
             </div>
         </div>

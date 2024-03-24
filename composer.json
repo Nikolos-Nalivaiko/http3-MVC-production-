@@ -13,6 +13,7 @@
     ],
     "require": {
         "symfony/var-dumper": "^7.0",
-        "rakit/validation": "^1.4"
+        "rakit/validation": "^1.4",
+        "endroid/qrcode": "^5.0"
     }
 }

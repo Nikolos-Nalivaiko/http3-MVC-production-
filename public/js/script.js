@@ -1,9 +1,6 @@
 function overlay() {
-    let overlay = $('.overlay');
-    let closeBtn = $(' .overlay__close');
-
-    closeBtn.on('click', function(){
-        overlay.fadeOut();
+    $('.overlay__close').on('click', function (event) {
+        $('.overlay').fadeOut()
     })
 }
 
@@ -17,8 +14,8 @@ function UploadImage() {
                 if (file && file.type.startsWith('image')) {
                     var reader = new FileReader();
 
+                    file.preview = 'No';
                     selectedFiles.push(file);
-                    console.log(selectedFiles);
 
                     reader.onloadstart = function () {
                         var load = `<div class="loader"></div>`;
@@ -59,10 +56,17 @@ function UploadImage() {
             });
         })
 
+        $('.input__images').on('click', '.input__image-wrapper', function () {
+            var clicked = $(this);
+            var index = $('.input__images .input__image-wrapper').index(clicked);
+            selectedFiles[index].preview = 'Yes';
+        })
+
         var fileInput = $('.file')[0];
         var files = fileInput.files;
         processFiles(files);
     })
+    
 }
 
 function Slider(track, container, prevBtn, nextBtn, items, SlideToShow, SlideToScroll, margin, adaptives, swipeArea) {
@@ -169,8 +173,8 @@ function loading() {
 
 function openFilter() {
     $('.filter__btn-setting').on('click', function (event) {
-        if ($(window).width() < 1190) {
-            $('.filter__form--mobile').fadeToggle().css("display", "grid");
+        if ($(window).width() <= 768) {
+            $('.filter__form').fadeToggle().css("display", "block");
         } else {
             $('.filter__extra-inputs').fadeToggle().css("display", "grid");
         }
@@ -215,6 +219,27 @@ function tabsControl() {
                 count: '1'
             }, ],
             $('.reviews__track')
+        );
+
+        Slider(
+            $('.user__setting-track'),
+            $('.user__setting-slider'),
+            $('.__prevSetting'),
+            $('.__nextSetting'),
+            $('.user__setting-nav-block'),
+            3,
+            1,
+            30,
+            [{
+                    width: '992',
+                    count: 2
+                },
+                {
+                    width: '768',
+                    count: 1
+                }
+            ],
+            $('.user__setting-slider')
         );
 
     })

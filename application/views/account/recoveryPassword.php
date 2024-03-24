@@ -4,21 +4,21 @@
         <p class="main__subheadline">Довірте нам ваші цінні інформаційні ресурси, і ми зробимо все можливе для
             їх успішного відновлення</p>
 
-        <form action="" method="post" class="sign-up__form">
+        <form action="" method="post" onsubmit="event.preventDefault()" class="sign-up__form">
 
             <div class="input__wrapper">
                 <p class="input__icon __icon-login"></p>
                 <div class="input__content">
                     <label for="login" class="input__label">Введіть ваш логін</label>
-                    <input type="text" id="login" class="input">
+                    <input type="text" id="login" name="login" class="input">
                 </div>
             </div>
 
             <div class="input__wrapper">
                 <p class="input__icon __icon-mail"></p>
                 <div class="input__content">
-                    <label for="mail" class="input__label">Введіть ваш e-mail</label>
-                    <input type="text" id="mail" class="input">
+                    <label for="email" class="input__label">Введіть ваш e-mail</label>
+                    <input type="text" id="email" name="email" class="input">
                 </div>
             </div>
 
@@ -27,3 +27,51 @@
         </form>
     </section>
 </main>
+<script>
+$(".input__btn").click(function() {
+
+    var formData = new FormData($('.sign-up__form')[0]);
+
+    var formDataObject = {};
+
+    formData.forEach(function(value, key) {
+        formDataObject[key] = value;
+    });
+
+    var formDataJson = JSON.stringify(formDataObject);
+
+    $.ajax({
+        type: "POST",
+        url: '/account/recovery/password',
+        data: {
+            formData: formDataJson,
+        },
+        dataType: 'json',
+        beforeSend: function() {
+            $('.load-page').show();
+        },
+        success: function(response) {
+            $('.load-page').fadeOut();
+
+            if (response.status == true) {
+                $('.overlay--success').fadeIn();
+                $('.overlay__headline').text(
+                    "Пароль відновлено");
+                $('.overlay__description').text(
+                    "Ваш новий пароль: " + response.password);
+                $(".overlay__close").click(function() {
+                    window.location.href = '/account/sign-in';
+                })
+            } else {
+                $('.overlay--error').fadeIn();
+                $('.overlay__description').text(response);
+            }
+        },
+        error: function(error) {
+            console.log(error.responseText);
+            console.log('error');
+        }
+    });
+
+})
+</script>

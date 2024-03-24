@@ -35,6 +35,27 @@ class Validation {
             'last_name' => 'Прізвище',
             'region' => 'Область',
             'city' => 'Місто',
+            'cargo_name' => 'Назва вантажу',
+            'weight' => 'Вага вантажу',
+            'load_region' => 'Область звантаження',
+            'load_city' => 'Місто звантаження',
+            'unload_region' => 'Область розвантаження',
+            'unload_city' => 'Місто розвантаження',
+            'body' => 'Тип кузову',
+            'price' => 'Вартість',
+            'pay_method' => 'Метод оплати',
+            'distance' => 'Відстань',
+            'description' => 'Опис вантажу',
+            'brand' => 'Марка',
+            'model' => 'Модель',
+            'engine_capacity' => 'Об’єм двигуна',
+            'wheel_mode' => 'Привід транспорту',
+            'power' => 'Потужність',
+            'gearbox' => 'Тип КПП',
+            'engine_type' => 'Тип двигуна',
+            'load_capacity' => 'Вантажопідйомність',
+            'year' => 'Рік випуску',
+            'mileage' => 'Пробіг',
         ]);
     }
 
@@ -50,12 +71,12 @@ class Validation {
     }
 
     public function setRegexData() {
-        $regex = 'regex:/^[a-zA-Z0-9а-яА-ЯЁёҐґЄєІіЇї]*$/u';
+        $regex = 'regex:/^[a-zA-Z0-9а-яА-ЯЁёҐґЄєІіЇї\']*$/u';
         return $regex;
     }
 
     public function setRegexDescript() {
-        $regex = 'regex:/^[a-zA-Z0-9а-яА-ЯЁёҐґЄєІіЇї\s"#,.]*$/u';
+        $regex = 'regex:/^[a-zA-Z0-9а-яА-ЯЁёҐґЄєІіЇї\s"#,.\']*$/u';
         return $regex;
     }
 

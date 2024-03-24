@@ -25,6 +25,18 @@ class ComposerStaticInitd580a7a9b1b3d3db9f909c704facdb13
         array (
             'Nikol\\Http3Mvc\\' => 15,
         ),
+        'E' => 
+        array (
+            'Endroid\\QrCode\\' => 15,
+        ),
+        'D' => 
+        array (
+            'DASPRiD\\Enum\\' => 13,
+        ),
+        'B' => 
+        array (
+            'BaconQrCode\\' => 12,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -43,6 +55,18 @@ class ComposerStaticInitd580a7a9b1b3d3db9f909c704facdb13
         'Nikol\\Http3Mvc\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Endroid\\QrCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/endroid/qrcode/src',
+        ),
+        'DASPRiD\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dasprid/enum/src',
+        ),
+        'BaconQrCode\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
     );
 

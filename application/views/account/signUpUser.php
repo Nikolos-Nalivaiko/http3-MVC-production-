@@ -143,7 +143,67 @@ $('#region').on('change', function() {
     })
 });
 
+$('.file').on('change', function(event) {
+    var files = event.target.files;
+    imagesArray = [];
+
+    const processFiles = async (files) => {
+        for (const file of files) {
+            if (file && file.type.startsWith('image')) {
+                var reader = new FileReader();
+
+                reader.onloadstart = function() {
+                    var load = `<div class="loader"></div>`;
+                    $('.input__images').append(load);
+                };
+
+                const imageLoaded = new Promise(resolve => {
+                    reader.onload = function(e) {
+                        resolve(e.target.result);
+                        $('.input__images').find('.loader').remove();
+                    };
+                });
+
+                reader.readAsDataURL(file);
+
+                const imageUrl = await imageLoaded;
+
+                var image = `<div class="input__image-wrapper">
+                    <p class="input__image-icon __icon-close"></p>
+                    <img src="${imageUrl}" class="input__image">
+                    </div>`;
+
+                $('.input__images').empty();
+                $('.input__images').append(image);
+
+                imagesArray.push(file);
+            }
+        }
+
+    };
+
+    $('.input__images').on('click', '.input__image-icon', function() {
+        var clickedElement = $(this);
+        var parentElements = clickedElement.closest('.input__image-wrapper');
+        var index = $('.input__images .input__image-wrapper').index(parentElements);
+
+        imagesArray.splice(index, 1);
+        parentElements.fadeOut('slow', function() {
+            $(this).remove();
+        });
+
+    })
+
+    processFiles(files);
+});
+
 $(".input__btn").click(function() {
+
+    var images = new FormData();
+    for (var i = 0; i < imagesArray.length; i++) {
+        var file = imagesArray[i];
+        images.append('files[]', imagesArray[i]);
+    }
 
     var formData = new FormData($('.sign-up__form')[0]);
 
@@ -153,41 +213,39 @@ $(".input__btn").click(function() {
         formDataObject[key] = value;
     });
 
-    formDataObject.file = [];
-    $('input[type="file"]').each(function(index, element) {
-        var files = element.files;
-        $.each(files, function(i, file) {
-            formDataObject.file.push({
-                name: file.name,
-                size: file.size,
-                type: file.type,
-                lastModifiedDate: file.lastModifiedDate
-            });
-        });
-    });
-
     var formDataJson = JSON.stringify(formDataObject);
 
     $.ajax({
         type: "POST",
         url: '/account/sign-up/user',
         data: {
-            formData: formDataJson
+            formData: formDataJson,
         },
         dataType: 'json',
+        beforeSend: function() {
+            $('.load-page').show();
+        },
         success: function(response) {
+            $('.load-page').fadeOut();
             console.log(response);
-            if (response == null) {
-                // $('.overlay--success').fadeIn();
 
-                // $(".sign-up__form :input").each(function() {
-                //     if ($(this).is("select")) {
-                //         $(this).find("option:first").prop("selected", true);
-                //     } else {
-                //         $(this).val("");
-                //     }
-                // });
-                window.location.href = '/';
+            if (response == null) {
+                $.ajax({
+                    type: "POST",
+                    url: '/account/sign-up/user',
+                    contentType: false,
+                    processData: false,
+                    data: images,
+                    success: function(response) {
+                        $('.overlay--success').fadeIn();
+                        $('.overlay__description').text(
+                            "Зміни успішно додані");
+                        $(".overlay__close").click(function() {
+                            window.location.href = '/';
+                        })
+                    }
+                });
+
             } else {
                 $('.overlay--error').fadeIn();
                 $('.overlay__description').text(response);
@@ -199,12 +257,5 @@ $(".input__btn").click(function() {
         }
     });
 
-    $.ajax({
-        type: "POST",
-        url: '/account/sign-up/user',
-        contentType: false,
-        processData: false,
-        data: formData
-    });
 })
 </script>

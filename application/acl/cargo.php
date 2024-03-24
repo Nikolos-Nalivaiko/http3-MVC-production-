@@ -4,6 +4,10 @@ return [
     'all' => [
         'cargos',
         'info',
-        'create'
+    ],
+    
+    'authorize' => [
+        'create',
+        'update'
     ]
 ];

@@ -5,6 +5,7 @@ namespace application\core;
 use application\core\View;
 use application\helper\Session;
 use application\helper\Cookie;
+use application\helper\Qr;
 
 abstract class Controller {
 
@@ -14,6 +15,7 @@ abstract class Controller {
     public $acl;
     public $session;
     public $cookie;
+    public $qr;
 
     public function __construct($route)
     {
@@ -21,6 +23,7 @@ abstract class Controller {
        $this->view = new View($route);
        $this->session = new Session;
        $this->cookie = new Cookie;
+       $this->qr = new Qr;
        $this->model = $this->loadModel($route['controller']);
        if(!$this->checkAcl()) {
         View::errorCode(403);
