@@ -12,7 +12,7 @@
                 <p class="input__icon-visible __icon-visible_pass"></p>
                 <div class="input__content">
                     <label for="pass" class="input__label">Введіть ваш пароль</label>
-                    <input type="password" id="pass" name="password" class="input">
+                    <input type="password" id="pass" name="password" class="input input--password">
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                 <p class="input__icon-visible __icon-visible_pass"></p>
                 <div class="input__content">
                     <label for="confirm" class="input__label">Повторіть ваш пароль</label>
-                    <input type="password" id="confirm" name="confirm" class="input">
+                    <input type="password" id="confirm" name="confirm" class="input input--password">
                 </div>
             </div>
 
@@ -36,8 +36,8 @@
             <div class="input__wrapper">
                 <p class="input__icon __icon-company-name"></p>
                 <div class="input__content">
-                    <label for="username" class="input__label">Введіть назву підприємства</label>
-                    <input type="text" id="username" name="company_name" class="input">
+                    <label for="company_name" class="input__label">Введіть назву підприємства</label>
+                    <input type="text" id="company_name" name="company_name" class="input">
                 </div>
             </div>
 
@@ -127,6 +127,60 @@ $('#region').on('change', function() {
     })
 });
 
+$('.file').on('change', function(event) {
+    var files = event.target.files;
+    imagesArray = [];
+
+    const processFiles = async (files) => {
+        for (const file of files) {
+            if (file && file.type.startsWith('image')) {
+                var reader = new FileReader();
+
+                reader.onloadstart = function() {
+                    var load = `<div class="loader"></div>`;
+                    $('.input__images').append(load);
+                };
+
+                const imageLoaded = new Promise(resolve => {
+                    reader.onload = function(e) {
+                        resolve(e.target.result);
+                        $('.input__images').find('.loader').remove();
+                    };
+                });
+
+                reader.readAsDataURL(file);
+
+                const imageUrl = await imageLoaded;
+
+                var image = `<div class="input__image-wrapper">
+                    <p class="input__image-icon __icon-close"></p>
+                    <img src="${imageUrl}" class="input__image">
+                    </div>`;
+
+                $('.input__images').empty();
+                $('.input__images').append(image);
+
+                imagesArray.push(file);
+            }
+        }
+
+    };
+
+    $('.input__images').on('click', '.input__image-icon', function() {
+        var clickedElement = $(this);
+        var parentElements = clickedElement.closest('.input__image-wrapper');
+        var index = $('.input__images .input__image-wrapper').index(parentElements);
+
+        imagesArray.splice(index, 1);
+        parentElements.fadeOut('slow', function() {
+            $(this).remove();
+        });
+
+    })
+
+    processFiles(files);
+});
+
 $(".input__btn").click(function() {
 
     var images = new FormData();
@@ -147,7 +201,7 @@ $(".input__btn").click(function() {
 
     $.ajax({
         type: "POST",
-        url: '/account/sign-up/user',
+        url: '/account/sign-up/company',
         data: {
             formData: formDataJson,
         },
@@ -162,14 +216,14 @@ $(".input__btn").click(function() {
             if (response == null) {
                 $.ajax({
                     type: "POST",
-                    url: '/account/sign-up/user',
+                    url: '/account/sign-up/company',
                     contentType: false,
                     processData: false,
                     data: images,
                     success: function(response) {
                         $('.overlay--success').fadeIn();
                         $('.overlay__description').text(
-                            "Зміни успішно додані");
+                            "Ваш профіль успішно створено");
                         $(".overlay__close").click(function() {
                             window.location.href = '/';
                         })

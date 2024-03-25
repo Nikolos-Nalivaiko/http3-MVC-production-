@@ -11,7 +11,7 @@
                 <p class="input__icon-visible __icon-visible_pass"></p>
                 <div class="input__content">
                     <label for="password" class="input__label">Введіть ваш пароль</label>
-                    <input type="password" id="password" name="password" class="input input__sign-in">
+                    <input type="password" id="password" name="password" class="input input__sign-in input--password">
                 </div>
             </div>
 

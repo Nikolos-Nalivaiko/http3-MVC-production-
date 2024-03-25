@@ -12,7 +12,7 @@
                 <p class="input__icon-visible __icon-visible_pass"></p>
                 <div class="input__content">
                     <label for="old_password" class="input__label">Введіть старий пароль</label>
-                    <input type="password" name="old_password" id="old_password" class="input">
+                    <input type="password" name="old_password" id="old_password" class="input input--password">
                 </div>
             </div>
 
@@ -21,7 +21,7 @@
                 <p class="input__icon-visible __icon-visible_pass"></p>
                 <div class="input__content">
                     <label for="new_password" class="input__label">Введіть новий пароль</label>
-                    <input type="password" name="new_password" id="new_password" class="input">
+                    <input type="password" name="new_password" id="new_password" class="input input--password">
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <p class="input__icon-visible __icon-visible_pass"></p>
                 <div class="input__content">
                     <label for="confirm_password" class="input__label">Повторіть новий пароль</label>
-                    <input type="password" name="confirm_password" id="confirm_password" class="input">
+                    <input type="password" name="confirm_password" id="confirm_password" class="input input--password">
                 </div>
             </div>
 

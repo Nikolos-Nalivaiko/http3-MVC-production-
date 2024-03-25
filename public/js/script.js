@@ -248,3 +248,20 @@ function tabsControl() {
 function phoneMask() {
     $('#phone').mask("+38 (999) 999-99-99")
 }
+
+function visiblePass() {
+    let icons = $(".__icon-visible_pass");
+
+    icons.each(function(index, icon) {
+        $(this).click(function() {
+            var pass = $(this).closest('.input__wrapper').find('.input--password');
+    
+            if(pass.prop("type") === 'password') {
+                pass.prop("type", "text");
+            } else {
+                pass.prop("type", "password");
+            }
+        });
+    });
+    
+}

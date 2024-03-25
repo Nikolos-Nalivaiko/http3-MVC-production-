@@ -178,7 +178,6 @@
 
             <?php
                 foreach($cargos as $cargo) {
-                    $weight = $cargo['weight'] / 1000;
                     $average_distance = round($cargo['price'] / $cargo['distance'], 1);
             ?>
             <a href="/cargo/info/<?=$cargo['cargo_id']?>" class="cargos__block">
@@ -233,7 +232,7 @@
 
                 <div class="cargos__block-footer">
                     <ul class="cargos__block-info">
-                        <li class="cargos__block-info-item"><?=$weight?> т.</li>
+                        <li class="cargos__block-info-item"><?=$cargo['weight']?> т.</li>
                         <li class="cargos__block-info-item"><?=$cargo['body']?></li>
                         <li class="cargos__block-info-item"><?=$cargo['pay_method']?></li>
                     </ul>

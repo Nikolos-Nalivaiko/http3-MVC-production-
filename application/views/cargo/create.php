@@ -18,7 +18,7 @@
             <div class="input__wrapper">
                 <p class="input__icon __icon-weight"></p>
                 <div class="input__content">
-                    <label for="weight" class="input__label">Введіть вагу товару, кг</label>
+                    <label for="weight" class="input__label">Введіть вагу товару, т.</label>
                     <input type="number" name="weight" id="weight" class="input">
                 </div>
             </div>

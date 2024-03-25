@@ -264,6 +264,7 @@
     openFilter();
     phoneMask();
     overlay();
+    visiblePass();
     </script>
 </body>
 

@@ -27,7 +27,7 @@
                 <p class="input__icon __icon-login"></p>
                 <div class="input__content">
                     <label for="confirm_login" class="input__label">Повторіть новий логін</label>
-                    <input type="text" name="confirm_login" id="confirm_login" class="input">
+                    <input type="text" name="confirm_login" id="confirm_login" class="input input--password">
                 </div>
             </div>
 
@@ -36,7 +36,7 @@
                 <p class="input__icon-visible __icon-visible_pass"></p>
                 <div class="input__content">
                     <label for="password" class="input__label">Введіть ваш пароль</label>
-                    <input type="password" name="password" id="password" class="input">
+                    <input type="password" name="password" id="password" class="input input--password">
                 </div>
             </div>
 
