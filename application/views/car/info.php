@@ -18,6 +18,9 @@
             </div>
         </div>
 
+        <?php
+        if($car['images'][0] != 'default.jpg') {
+            ?>
         <div class="car__slider">
             <div class="car__slider-track">
                 <?php
@@ -27,6 +30,9 @@
                 ?>
             </div>
         </div>
+        <?php
+        }
+        ?>
 
         <div class="car__subslider">
             <div class="car__subslider-point">
@@ -37,6 +43,9 @@
                 </div>
             </div>
 
+            <?php 
+            if($car['images'][0] != 'default.jpg') {
+            ?>
             <div class="car__control">
                 <p class="car__control-text"><span id="car__slider-counter"></span></p>
                 <div class="car__control-arrows">
@@ -44,6 +53,10 @@
                     <p class="car__control-icon __icon-right_arr __next"></p>
                 </div>
             </div>
+            <?php
+            }
+            ?>
+
         </div>
 
         <div class="car__info">
@@ -170,12 +183,21 @@
                     </p>
                 </div>
 
+                <?php
+                if(!empty($car['reviews'])) {
+                    ?>
                 <div class="reviews__arrows">
                     <p class="reviews__arrow __icon-left_arr __prev"></p>
                     <p class="reviews__arrow __icon-right_arr __next"></p>
                 </div>
+                <?php
+                }
+                ?>
             </div>
 
+            <?php
+            if(!empty($car['reviews'])) {
+            ?>
             <div class="reviews__slider">
                 <div class="reviews__track">
 
@@ -205,6 +227,16 @@
 
                 </div>
             </div>
+            <?php
+            } else {
+                ?>
+            <div class="content-empty">
+                <p class="content-empty__headline">Відгуки про користувача відсутні</p>
+                <p class="content-empty__description">Користувачі ще не додали відгуки</p>
+            </div>
+            <?php
+            }
+            ?>
         </section>
 
         <section class="main__section qr-code">

@@ -299,6 +299,8 @@ $(".input__btn").click(function() {
             $('.overlay--success').fadeIn();
             if (response == null) {
                 $('.overlay--success').fadeIn();
+                $('.overlay__headline').text(
+                    "Зміни додані");
                 $('.overlay__description').text("Вантаж успішно редаговано");
                 $(".overlay__close").click(function() {
                     window.location.href = '/account/profile';

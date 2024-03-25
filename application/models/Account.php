@@ -657,6 +657,66 @@ class Account extends Model {
         $this->db->query($sql, $params);
     }
 
+    public function deleteUser($user_id) {
+        $sql = "DELETE FROM comment WHERE user_id = :user_id";
+
+        $params = [
+            'user_id' => $user_id
+        ];
+
+        $this->db->query($sql, $params);
+
+        $sql = "DELETE FROM reviews WHERE sender_id = :user_id";
+
+        $params = [
+            'user_id' => $user_id
+        ];
+
+        $this->db->query($sql, $params);
+
+        $sql = "SELECT car_images.car_id FROM car_images
+        JOIN cars ON cars.car_id = car_images.car_id
+        WHERE user_id = :user_id";
+
+        $params = [
+            'user_id' => $user_id
+        ];
+
+        $car_id = $this->db->column($sql, $params);
+
+        $sql = "DELETE FROM car_images WHERE car_id = :car_id";
+
+        $params = [
+            'car_id' => $car_id
+        ];
+
+        $this->db->query($sql, $params);
+
+        $sql = "DELETE FROM cars WHERE user_id = :user_id";
+
+        $params = [
+            'user_id' => $user_id
+        ];
+
+        $this->db->query($sql, $params);
+
+        $sql = "DELETE FROM cargos WHERE user_id = :user_id";
+
+        $params = [
+            'user_id' => $user_id
+        ];
+
+        $this->db->query($sql, $params);
+
+        $sql = "DELETE FROM users WHERE id_user = :user_id";
+
+        $params = [
+            'user_id' => $user_id
+        ];
+
+        $this->db->query($sql, $params);
+    }
+
     private function checkLogin($login) {
         $sql = "SELECT * FROM users WHERE `login` = :login ";
 

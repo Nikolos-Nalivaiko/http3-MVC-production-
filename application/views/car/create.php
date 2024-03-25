@@ -370,6 +370,8 @@ $(".input__btn").click(function() {
                     data: images,
                     success: function(response) {
                         $('.overlay--success').fadeIn();
+                        $('.overlay__headline').text(
+                            "Транспорт додано");
                         $('.overlay__description').text(
                             "Транспорт успішно додано до біржі транспорту");
 

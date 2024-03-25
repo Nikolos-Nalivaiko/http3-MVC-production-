@@ -114,6 +114,20 @@ class AccountController extends Controller {
             die();
         }
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES)) {
+            $imageArray = [];
+            if(!empty($_FILES['files'])) {
+                foreach ($_FILES['files']['name'] as $index => $name) {
+                    $imageArray[] = [
+                        'name' => $name,
+                        'size' => $_FILES['files']['size'][$index],
+                        'tmp_name' => $_FILES['files']['tmp_name'][$index],
+                    ];
+                }
+                $this->model->uploadImage($imageArray, $this->session->get('id_user'));
+            }
+        }
+
         if(isset($_POST['region'])) {
             $region = $_POST['region'];
             echo json_encode($this->model->selectCities($region));
@@ -267,6 +281,31 @@ class AccountController extends Controller {
         if(isset($_POST['carId'])) {
             $carId = json_decode($_POST['carId'], true);
             echo json_encode($this->model->deleteCar($carId));
+            header('Content-Type: application/json');
+            die();
+        }
+
+        if(isset($_POST['logOut'])) {
+            $logOut = json_decode($_POST['logOut'], true);
+            if( $logOut == true) {
+                $this->session->remove('auth');
+                $this->session->remove('request');
+                $this->cookie->delete('key');
+                $this->cookie->delete('login');
+            }
+            echo json_encode(true);
+            header('Content-Type: application/json');
+            die();
+        }
+
+        if(isset($_POST['deleteUser'])) {
+            $deleteUser = json_decode($_POST['deleteUser'], true);
+            $this->model->deleteUser($this->session->get('id_user'));
+            $this->session->remove('auth');
+            $this->session->remove('request');
+            $this->cookie->delete('key');
+            $this->cookie->delete('login');
+            echo json_encode(true);
             header('Content-Type: application/json');
             die();
         }

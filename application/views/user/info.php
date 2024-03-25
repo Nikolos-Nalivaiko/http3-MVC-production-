@@ -6,11 +6,13 @@
         </div>
 
         <form action="" method="post" class="overlay-review__form" onsubmit="event.preventDefault()">
-            <textarea name="review" class="overlay-review__input-text"><?=isset($user_info['current_reviews']) ? $user_info['current_reviews'][0]['description'] : '';?></textarea>
+            <textarea name="review"
+                class="overlay-review__input-text"><?=!empty($user_info['current_reviews']) ? $user_info['current_reviews'][0]['description'] : '';?></textarea>
 
             <p class="overlay-review__star-label">Наскільки ви оцінюєте користувача ?</p>
 
-            <div class="reviews__stars overlay-review__stars" data-value-total="<?=isset($user_info['current_reviews']) ? $user_info['current_reviews'][0]['rating'] : '1';?>">
+            <div class="reviews__stars overlay-review__stars"
+                data-value-total="<?=!empty($user_info['current_reviews']) ? $user_info['current_reviews'][0]['rating'] : '1';?>">
                 <p class="reviews__star reviews__star__overlay reviews__star--active __icon-star" data-item-value="1">
                 </p>
                 <p class="reviews__star reviews__star__overlay __icon-star" data-item-value="2"></p>
@@ -44,7 +46,6 @@
                 </div>
             </div>
 
-            <!-- <p class="user__about-icon __icon-license-user" title="Преміум користувач"></p> -->
         </div>
 
         <div class="user__contacts">
@@ -230,8 +231,8 @@
             <div class="reviews__slider user__reviews-slider">
                 <div class="reviews__track">
 
-                    <?php if(!empty($user_info['reviews'])){
-                    foreach($user_info['reviews'] as $review) {
+                    <?php if(!empty($car['reviews'])){
+                    foreach($car['reviews'] as $review) {
                 ?>
 
                     <div class="reviews__block">
@@ -397,6 +398,8 @@ $(".overlay-review--open").click(function() {
                 $('.overlay--success').fadeIn();
                 if (response == null) {
                     $('.overlay--success').fadeIn();
+                    $('.overlay__headline').text(
+                        "Відгук додано");
                     $('.overlay__description').text(
                         "Відгук успішно додано");
                     $(".overlay__close").click(function() {

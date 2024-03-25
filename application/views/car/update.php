@@ -519,6 +519,8 @@ $(".input__btn").click(function() {
                     data: images,
                     success: function(response) {
                         $('.overlay--success').fadeIn();
+                        $('.overlay__headline').text(
+                            "Зміни додані");
                         $('.overlay__description').text(
                             "Транспорт успішно редаговано");
                         $(".overlay__close").click(function() {

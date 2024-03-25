@@ -88,13 +88,18 @@ class Cargo extends Model {
 
                 $data = $this->db->row($sql, $params);
 
-                foreach($data as $review) {
-                    $average_rating[] = $review['rating'];
-                    $reviews[] = $review;
+                if(!empty($data)) {
+                    foreach($data as $review) {
+                        $average_rating[] = $review['rating'];
+                        $reviews[] = $review;
+                    }
+        
+                    $cargo['reviews'] = $reviews;
+                    $cargo['average_rating'] = round(array_sum($average_rating) / count($average_rating), 1);
+                } else {
+                    $cargo['reviews'] = null;
+                    $cargo['average_rating'] = "-";
                 }
-
-                $cargo['reviews'] = $reviews;
-                $cargo['average_rating'] = array_sum($average_rating) / count($average_rating);
             }
         } else {
             $cargo = null;

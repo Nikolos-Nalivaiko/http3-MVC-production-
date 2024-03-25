@@ -80,7 +80,7 @@
                         <p class="cargo__block-info-icon __icon-weight"></p>
                         <div class="cargo__block-info-text">
                             <p class="cargo__block-info-title"><?=$cargo['weight']?></p>
-                            <p class="cargo__block-info-subtitle">Вага товару, кг</p>
+                            <p class="cargo__block-info-subtitle">Вага товару, т.</p>
                         </div>
                     </div>
 
@@ -118,7 +118,14 @@
 
             <div class="cargo__block">
                 <p class="cargo__block-headline">Опис вантажу</p>
-                <p class="cargo__block-description"><?=$cargo['description']?></p>
+                <?php
+            if(!empty($cargo['description'])) {
+                $descript = $cargo['description'];
+                echo "<p class='cargo__block-description'>$descript</p>";
+            } else {
+                echo "<p class='cargo__block-description'>Опис не додано</p>";
+            }
+            ?>
             </div>
 
             <div class="user__block">
@@ -164,12 +171,21 @@
                     </p>
                 </div>
 
+                <?php
+                if(!empty($cargo['reviews'])) {
+                    ?>
                 <div class="reviews__arrows">
                     <p class="reviews__arrow __icon-left_arr __prev"></p>
                     <p class="reviews__arrow __icon-right_arr __next"></p>
                 </div>
+                <?php
+                }
+                ?>
             </div>
 
+            <?php
+            if(!empty($cargo['reviews'])) {
+            ?>
             <div class="reviews__slider">
                 <div class="reviews__track">
 
@@ -199,6 +215,16 @@
 
                 </div>
             </div>
+            <?php
+            } else {
+                ?>
+            <div class="content-empty">
+                <p class="content-empty__headline">Відгуки про користувача відсутні</p>
+                <p class="content-empty__description">Користувачі ще не додали відгуки</p>
+            </div>
+            <?php
+            }
+            ?>
         </section>
 
         <section class="main__section qr-code">

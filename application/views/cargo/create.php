@@ -231,9 +231,12 @@ $(".input__btn").click(function() {
             $('.load-page').show();
         },
         success: function(response) {
+            $('.load-page').fadeOut();
             $('.overlay--success').fadeIn();
             if (response == null) {
                 $('.overlay--success').fadeIn();
+                $('.overlay__headline').text(
+                    "Вантаж додано");
                 $('.overlay__description').text("Вантаж успішно додано до біржі вантажів");
 
                 $(".sign-up__form :input").each(function() {

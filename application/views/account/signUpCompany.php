@@ -129,6 +129,12 @@ $('#region').on('change', function() {
 
 $(".input__btn").click(function() {
 
+    var images = new FormData();
+    for (var i = 0; i < imagesArray.length; i++) {
+        var file = imagesArray[i];
+        images.append('files[]', imagesArray[i]);
+    }
+
     var formData = new FormData($('.sign-up__form')[0]);
 
     var formDataObject = {};
@@ -137,32 +143,39 @@ $(".input__btn").click(function() {
         formDataObject[key] = value;
     });
 
-    formDataObject.file = [];
-    $('input[type="file"]').each(function(index, element) {
-        var files = element.files;
-        $.each(files, function(i, file) {
-            formDataObject.file.push({
-                name: file.name,
-                size: file.size,
-                type: file.type,
-                lastModifiedDate: file.lastModifiedDate
-            });
-        });
-    });
-
     var formDataJson = JSON.stringify(formDataObject);
 
     $.ajax({
         type: "POST",
-        url: '/account/sign-up/company',
+        url: '/account/sign-up/user',
         data: {
-            formData: formDataJson
+            formData: formDataJson,
         },
         dataType: 'json',
+        beforeSend: function() {
+            $('.load-page').show();
+        },
         success: function(response) {
+            $('.load-page').fadeOut();
             console.log(response);
+
             if (response == null) {
-                window.location.href = '/';
+                $.ajax({
+                    type: "POST",
+                    url: '/account/sign-up/user',
+                    contentType: false,
+                    processData: false,
+                    data: images,
+                    success: function(response) {
+                        $('.overlay--success').fadeIn();
+                        $('.overlay__description').text(
+                            "Зміни успішно додані");
+                        $(".overlay__close").click(function() {
+                            window.location.href = '/';
+                        })
+                    }
+                });
+
             } else {
                 $('.overlay--error').fadeIn();
                 $('.overlay__description').text(response);
@@ -174,12 +187,5 @@ $(".input__btn").click(function() {
         }
     });
 
-    $.ajax({
-        type: "POST",
-        url: '/account/sign-up/user',
-        contentType: false,
-        processData: false,
-        data: formData
-    });
 })
 </script>

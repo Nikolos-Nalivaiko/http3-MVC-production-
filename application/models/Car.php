@@ -338,13 +338,18 @@ class Car extends Model {
 
                 $data = $this->db->row($sql, $params);
 
-                foreach($data as $review) {
-                    $average_rating[] = $review['rating'];
-                    $reviews[] = $review;
+                if(!empty($data)) {
+                    foreach($data as $review) {
+                        $average_rating[] = $review['rating'];
+                        $reviews[] = $review;
+                    }
+        
+                    $car['reviews'] = $reviews;
+                    $car['average_rating'] = round(array_sum($average_rating) / count($average_rating), 1);
+                } else {
+                    $car['reviews'] = null;
+                    $car['average_rating'] = "-";
                 }
-
-                $car['reviews'] = $reviews;
-                $car['average_rating'] = array_sum($average_rating) / count($average_rating);
 
                 $sql = "SELECT image_name
                 FROM car_images

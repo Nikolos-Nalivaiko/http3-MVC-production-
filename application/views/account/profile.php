@@ -114,9 +114,11 @@
 
         <div class="user__content" id="cargosContent">
             <p class="user__content-headline">Ваші вантажі</p>
+            <?php
+            if(!empty($profile['cargos'])) {
+            ?>
 
             <div class="cargos__content">
-
                 <?php
                     foreach($profile['cargos'] as $cargo) {
                         ?>
@@ -200,12 +202,26 @@
                 <?php
                     }
                 ?>
-
             </div>
+            <?php
+            } else {
+                ?>
+            <div class="content-empty">
+                <p class="content-empty__headline">Вантажі відсутні</p>
+                <p class="content-empty__description">Ваші вантажі не знайдено</p>
+            </div>
+            <?php
+            }
+        ?>
+
         </div>
 
         <div class="user__content" id="carsContent">
             <p class="user__content-headline">Ваш транспорт</p>
+
+            <?php
+                if(!empty($profile['cars'])) {
+            ?>
 
             <div class="cars__content">
 
@@ -252,17 +268,39 @@
             ?>
 
             </div>
+
+            <?php
+                } else {
+                    ?>
+            <div class="content-empty">
+                <p class="content-empty__headline">Транспорт відсутній</p>
+                <p class="content-empty__description">Ваш транспорт не знайдено</p>
+            </div>
+            <?php
+                }
+            ?>
         </div>
 
         <div class="reviews user__content" id="reviewsContent">
             <div class="reviews__head">
                 <p class="user__content-headline">Відгуки користувачів про Вас</p>
 
+                <?php
+                if(!empty($profile['reviews'])) {
+                    ?>
                 <div class="reviews__arrows">
                     <p class="reviews__arrow __icon-left_arr __prev"></p>
                     <p class="reviews__arrow __icon-right_arr __next"></p>
                 </div>
+                <?php
+                }
+                ?>
+
             </div>
+
+            <?php
+            if(!empty($profile['reviews'])) {
+                ?>
 
             <div class="reviews__slider user__reviews-slider">
                 <div class="reviews__track">
@@ -295,6 +333,17 @@
 
                 </div>
             </div>
+
+            <?php
+            } else {
+                ?>
+            <div class="content-empty">
+                <p class="content-empty__headline">Відгуки про Вас відсутні</p>
+                <p class="content-empty__description">Користувачі ще не додали відгуки про Вас</p>
+            </div>
+            <?php
+            }
+            ?>
 
         </div>
 
@@ -375,10 +424,10 @@
                         <p class="user__setting-nav-block-title">Змінити логін</p>
                     </a>
 
-                    <a href="" class="user__setting-nav-block">
+                    <div class="user__setting-nav-block user__delete-user">
                         <p class="user__setting-nav-block-icon __icon-user-delete"></p>
                         <p class="user__setting-nav-block-title">Видалити профіль</p>
-                    </a>
+                    </div>
 
                 </div>
             </div>
@@ -501,7 +550,7 @@
 
                 <div class="input__images">
                     <?php
-                    if(!empty($profile['image'])) {
+                    if(!empty($profile['image']) AND $profile['image'] != 'default.jpg') {
                         ?>
                     <div class="input__image-wrapper">
                         <p class="input__image-icon __icon-close"></p>
@@ -592,6 +641,8 @@ $(".overlay-review--open").click(function() {
                 $('.overlay--success').fadeIn();
                 if (response == null) {
                     $('.overlay--success').fadeIn();
+                    $('.overlay__headline').text(
+                        "Відгук додано");
                     $('.overlay__description').text(
                         "Відгук успішно додано");
                     $(".overlay__close").click(function() {
@@ -677,6 +728,8 @@ $('.cargos__block').on('click', '.cargos__delete', function() {
             success: function(response) {
                 $('.load-page').fadeOut();
                 $('.overlay--success').fadeIn();
+                $('.overlay__headline').text(
+                    "Вантаж видалено");
                 $('.overlay__description').text(
                     "Вантаж успішно видалено");
                 $(".overlay__close").click(function() {
@@ -713,6 +766,8 @@ $('.cars__block').on('click', '.car__delete', function() {
             success: function(response) {
                 $('.load-page').fadeOut();
                 $('.overlay--success').fadeIn();
+                $('.overlay__headline').text(
+                    "Транспорт видалено");
                 $('.overlay__description').text(
                     "Транспорт успішно видалено");
                 $(".overlay__close").click(function() {
@@ -878,6 +933,8 @@ $(".input__btn").click(function() {
                     data: images,
                     success: function(response) {
                         $('.overlay--success').fadeIn();
+                        $('.overlay__headline').text(
+                            "Зміни додані");
                         $('.overlay__description').text(
                             "Зміни успішно додані");
                         $(".overlay__close").click(function() {
@@ -896,6 +953,71 @@ $(".input__btn").click(function() {
             console.log('error');
         }
     });
+})
 
+$('.user__about-exit').on('click', function() {
+
+    $('.overlay--warning').fadeIn();
+    $('.overlay__headline').text(
+        "Вийти з профілю ?");
+    $('.overlay__description').text(
+        "Процес, який призведе до виходу з профілю");
+    $('.overlay__delete').text(
+        "Вийти");
+    $('.overlay__delete').on('click', function() {
+        $('.overlay--warning').fadeOut();
+
+        $.ajax({
+            type: "POST",
+            url: '/account/profile',
+            data: {
+                logOut: true,
+            },
+            dataType: 'json',
+            beforeSend: function() {
+                $('.load-page').show();
+            },
+            success: function(response) {
+                $('.load-page').fadeOut();
+                window.location.href = '/';
+            },
+            error: function(error) {
+                console.log(error.responseText);
+                console.log('error');
+            }
+        });
+    })
+})
+
+$('.user__delete-user').on('click', function() {
+
+    $('.overlay--warning').fadeIn();
+    $('.overlay__headline').text(
+        "Видалити профіль ?");
+    $('.overlay__description').text(
+        "Процес, який призведе до видалення профілю");
+    $('.overlay__delete').on('click', function() {
+        $('.overlay--warning').fadeOut();
+
+        $.ajax({
+            type: "POST",
+            url: '/account/profile',
+            data: {
+                deleteUser: true,
+            },
+            dataType: 'json',
+            beforeSend: function() {
+                $('.load-page').show();
+            },
+            success: function(response) {
+                $('.load-page').fadeOut();
+                window.location.href = '/';
+            },
+            error: function(error) {
+                console.log(error.responseText);
+                console.log('error');
+            }
+        });
+    })
 })
 </script>

@@ -3322,6 +3322,7 @@ input[type=file] {
   }
 }
 .user__setting-nav-block {
+  cursor: pointer;
   border-radius: 10px;
   border: 1px solid #DBDBDB;
   display: -webkit-box;
